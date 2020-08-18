@@ -30,6 +30,7 @@ def find_value(html, key, num_sep_chars=2, separator='"'):
 from pprint import pprint
 
 def get_comment(url):
+
     session = requests.Session()
     res = session.get(url)  # make the request
     # xsrf_token is the session_token extracting.........
@@ -81,15 +82,30 @@ def get_comment(url):
 
          continuation_tokens = [(next_cdata['continuation'], next_cdata['clickTrackingParams']) for next_cdata in search_dict(comments_data, 'nextContinuationData')]+continuation_tokens
          # avoiding heavy loads with popular data
-         time.sleep(0.1)
+         print(".",end='')
+         time.sleep(1)
+
 
 
 if __name__ == "__main__":
         url = input("Put the URL here: ")
         file_name = input("Put a file name you want to save as: ")
+        while  True:
+
+            if len(url) < 1:
+                print("Please enter youtube url again")
+                url = input("Put the URL here: ")
+            elif len(file_name) < 1:
+                print("Please enter File name again")
+                file_name = input("Put a file name you want to save as: ")
+            else:
+                break
+        print("\rprocessing.",end="")
         with open("comments_file\{}.csv".format(file_name), "w", encoding='utf-8') as file:
                 file.write("count, author, comment, isLiked?\n")
+
                 for count, comment in enumerate(get_comment(url)):
                     com_info = dict(comment)
                     file.write(str(count)+","+com_info['author']+","+str(com_info['comment'].replace(',', ' ').replace('\n', ''))+","+str(com_info['isLiked'])+"\n")
+        print()
         print("done..")

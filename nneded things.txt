@@ -1,0 +1,10 @@
+what we need these to extract data:
+-> action_get_comments
+-> pbj
+-> ctoken 
+-> continuation
+-> itct
+-> session_token
+
+
+
