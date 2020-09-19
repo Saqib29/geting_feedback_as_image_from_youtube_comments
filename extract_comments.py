@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+from pprint import pprint
 
 def search_dict(partial, key):
     """
@@ -27,7 +28,7 @@ def find_value(html, key, num_sep_chars=2, separator='"'):
     print(start_pos,end_pos, len(key), html.find(key)) ########## <--- remover ############
     return html[start_pos:end_pos]
 
-from pprint import pprint
+
 
 def get_comment(url):
     session = requests.Session()
